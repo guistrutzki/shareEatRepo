@@ -10,7 +10,8 @@ import api from '../../services/api';
 import { styles, TasksWrapper, Title, FlatList } from './styles';
 import TaskCard from '../../Components/TaskCard';
 
-const Home = () => {
+const Home = (props) => {
+  const { navigation } = props;
   const [tasks, setTasks] = useState();
 
   const fetchTasks = async () => {
@@ -19,7 +20,7 @@ const Home = () => {
   };
 
   const handleTaskClick = (task) => {
-    alert(task);
+    navigation.navigate('Main', { task, title: 'Localização...' });
   };
 
   useEffect(() => {
