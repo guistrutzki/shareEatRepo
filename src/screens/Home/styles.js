@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
 });
 
 export const TasksWrapper = styled.View`
-  width: 80%;
-  margin-left: 10%;
+  width: 90%;
+  margin-left: 5%;
   height: 80%;
-  margin-top: 20px;
+  margin-top: 30px;
   justify-content: center;
   align-items: center;
 `;
@@ -21,5 +21,9 @@ export const Title = styled.Text`
   margin-top: 30px;
   margin-left: 5%;
   color: #000;
-  font-weight: 500,
+  font-weight: 500;
+`;
+
+export const FlatList = styled.FlatList`
+  flex: 1
 `;

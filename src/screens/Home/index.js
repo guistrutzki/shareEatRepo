@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {
   StatusBar,
   ActivityIndicator,
-  FlatList,
   Text,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import api from '../../services/api';
-import {styles, TasksWrapper, Title} from './styles';
+import { styles, TasksWrapper, Title, FlatList } from './styles';
+import TaskCard from '../../Components/TaskCard';
 
 const Home = () => {
   const [tasks, setTasks] = useState();
@@ -16,6 +16,10 @@ const Home = () => {
   const fetchTasks = async () => {
     const response = await api.getAllTasks();
     setTasks(response.data.lista);
+  };
+
+  const handleTaskClick = (task) => {
+    alert(task);
   };
 
   useEffect(() => {
@@ -33,7 +37,7 @@ const Home = () => {
           <FlatList
             data={tasks}
             keyExtractor={(item) => `key-${item}`}
-            renderItem={({ item }) => <Text>{item}</Text>}
+            renderItem={({ item }) => <TaskCard item={item} handleClick={handleTaskClick} />}
           />
         </TasksWrapper>
       </LinearGradient>
