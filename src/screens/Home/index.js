@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {
-  StatusBar,
-  ActivityIndicator,
-  Text,
-} from 'react-native';
+import { StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import api from '../../services/api';
-import { styles, TasksWrapper, Title, FlatList } from './styles';
+import {
+  styles,
+  TasksWrapper,
+  Title, FlatList,
+  ActivityIndicator,
+} from './styles';
 import TaskCard from '../../Components/TaskCard';
 
 const Home = (props) => {
@@ -29,11 +30,13 @@ const Home = (props) => {
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
-      <LinearGradient colors={['#f1f1f1', '#c1c1c1']} style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      <LinearGradient colors={['#EEAD4f', '#EEAD88']} style={styles.container}>
         <Title>Tarefas</Title>
         <TasksWrapper>
-          {!tasks && <ActivityIndicator size="large" color="#000" />}
+          {!tasks && (
+            <ActivityIndicator size="large" color="#fff" />
+          )}
 
           <FlatList
             data={tasks}

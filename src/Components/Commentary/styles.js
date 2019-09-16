@@ -62,7 +62,7 @@ export const CommentRatingArea = styled.View`
   position: absolute;
   top: 20px;
   right: 30px;
-  flex-direction: row;
+  flex-direction: row-reverse;
 `;
 
 export const RatingStar = styled.Image`

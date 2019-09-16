@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Text, ActivityIndicator, Linking, Alert } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
+import { Linking, Alert, Text } from 'react-native';
 import MapView from 'react-native-maps';
+import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 
 import api from '../../services/api';
 import Commentary from '../../Components/Commentary';
 import {
   Container,
+  ActivityIndicator,
   ImageWrapper,
   TaskImage,
   TaskIcon,
@@ -23,6 +25,8 @@ import {
   AddressIconArea,
   AddressIcon,
   CommentsWrapper,
+  CommentsEmpty,
+
 } from './styles';
 
 import servicesIcon from '../../assets/services.png';
@@ -33,17 +37,21 @@ import starIcon from '../../assets/star.png';
 
 const Main = (props) => {
   const { navigation } = props;
+  const scrollView = useRef(null);
+  const commentsRef = useRef(null);
   const [data, setData] = useState(null);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+  const [containerHeight, setContainerHeight] = useState(null);
   const [location, setLocation] = useState({
     latitudeDelta: 0.0043,
     longitudeDelta: 0.0034,
   });
   // Component
-  const headerRight = <Text>lala</Text>;
+  // const headerRight = <Text>lala</Text>;
 
   Main.navigationOptions = {
     title: navigation.getParam('title'),
-    headerRight,
+    // headerRight,
   };
 
   const task = navigation.getParam('task');
@@ -77,14 +85,45 @@ const Main = (props) => {
     );
   };
 
+  const handleScrollToComments = () => {
+    let elementPosition = null;
+    commentsRef.current.measure((fx, fy, width, height, px, py) => {
+      elementPosition = py;
+    });
+    scrollView.current.scrollTo({
+      x: 0,
+      y: containerHeight - elementPosition,
+      animated: true,
+    });
+  };
+
   return (
-    <Container>
+    <Container
+      ref={scrollView}
+      onContentSizeChange={(width, height) => {
+        setContainerHeight(height);
+      }}
+    >
       {!data && <ActivityIndicator size="large" color="#000" />}
 
       {data && (
         <>
+          <ShimmerPlaceHolder
+            style={styles.shimmer}
+            autoRun
+            visible={isImgLoaded}
+            width={1000}
+            height={200}
+            colorShimmer={['#ebebeb', '#c5c5c5', '#ebebeb']}
+          />
           <ImageWrapper>
-            <TaskImage source={{ uri: data.urlFoto }} resizeMode="cover" />
+            <TaskImage
+              source={{ uri: data.urlFoto }}
+              resizeMode="cover"
+              onLoad={() => {
+                setIsImgLoaded(true);
+              }}
+            />
             <TaskIconButton>
               <TaskIcon source={{ uri: data.urlLogo }} />
             </TaskIconButton>
@@ -106,11 +145,11 @@ const Main = (props) => {
                 <ButtonIcon source={markerIcon} />
                 <ButtonTitle>Endereço</ButtonTitle>
               </Button>
-              <Button onPress={() => alert('comments')}>
+              <Button onPress={() => handleScrollToComments()}>
                 <ButtonIcon source={commentsIcon} />
                 <ButtonTitle>Comentários</ButtonTitle>
               </Button>
-              <Button onPress={() => alert('favorites')}>
+              <Button onPress={() => {}}>
                 <ButtonIcon source={starIcon} />
                 <ButtonTitle>Favoritos</ButtonTitle>
               </Button>
@@ -139,9 +178,19 @@ const Main = (props) => {
                 </AddressIconArea>
               </YellowBar>
 
-              {
-                data.comentarios.length > 0
-                && data.comentarios.map((comment) => <Commentary data={comment} />)}
+              <CommentsWrapper
+                ref={commentsRef}
+              >
+                { data.comentarios.length === 0 && (
+                  <CommentsEmpty>Ainda não há comentários</CommentsEmpty>
+                )}
+                {
+                  data.comentarios.length > 0
+                  && data.comentarios.map((comment) => (
+                    <Commentary data={comment} key={comment.titulo} />
+                  ))
+                }
+              </CommentsWrapper>
             </>
           )}
         </>

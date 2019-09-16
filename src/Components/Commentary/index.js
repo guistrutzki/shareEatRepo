@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 
 import {
   CommentWrapper,
@@ -16,10 +15,10 @@ import starIcon from '../../assets/star.png';
 
 const Commentary = (props) => {
   const { data } = props;
-  let stars = [];
+  const stars = [];
 
   for (let i = 0; i < data.nota; i += 1) {
-    stars.push(<RatingStar source={starIcon} />);
+    stars.push(<RatingStar key={i} source={starIcon} />);
   }
 
   return (

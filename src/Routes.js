@@ -13,9 +13,9 @@ const AppRoutes = createStackNavigator({
       title: 'Home',
       headerBackTitle: null,
       headerStyle: {
-        backgroundColor: '#EEAD4f',
+        backgroundColor: '#fff',
       },
-      headerTintColor: '#fff',
+      headerTintColor: '#EEAD4f',
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 16,

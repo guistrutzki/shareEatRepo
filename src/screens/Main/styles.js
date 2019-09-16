@@ -6,6 +6,12 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: 80,
   },
+  shimmer: {
+    backgroundColor: '#ebebeb',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
 });
 
 export const Container = styled.ScrollView`
@@ -23,13 +29,14 @@ export const TaskImage = styled.Image`
   flex: 1;
 `;
 
-export const TaskIconButton = styled.TouchableOpacity`
+export const TaskIconButton = styled.View`
   bottom: -30px;
   right: 20px;
   position: absolute;
   padding: 10px;
   background-color: #fff;
   border-radius: 40px;
+  z-index: 40;
 `;
 
 export const TaskIcon = styled.Image`
@@ -118,6 +125,20 @@ export const AddressIcon = styled.Image`
   height: 30px;
 `;
 
-export const CommentsWrapper = styled.FlatList`
+export const CommentsWrapper = styled.View`
   background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+`;
+
+export const CommentsEmpty = styled.Text`
+  font-size: 14px;
+  font-weight: 500;
+  color: #EEAD4f;
+`;
+
+export const ActivityIndicator = styled.ActivityIndicator`
+  align-self: center;
+  min-height: 100%;
 `;
