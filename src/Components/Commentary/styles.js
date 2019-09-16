@@ -37,20 +37,20 @@ export const CommentContentArea = styled.View`
 
 export const CommentAuthor = styled.Text`
   font-size: 12px;
-  color: #EEAD4f;
+  color: #eead4f;
   font-weight: 500;
 `;
 
 export const CommentTitle = styled.Text`
   font-size: 14px;
-  color: #EEAD4f;
+  color: #eead4f;
   font-weight: 500;
 `;
 
 export const CommentDescription = styled.Text`
   font-size: 12px;
   margin-top: 5px;
-  color: #EEAD4f;
+  color: #eead4f;
   font-weight: 300;
   margin-right: 20px;
   text-align: justify;

@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   addressMap: {
@@ -55,7 +55,7 @@ export const TaskTitle = styled.Text`
   margin-left: 5%;
   margin-top: 15px;
   margin-bottom: 15px;
-  color: #EEAD4f;
+  color: #eead4f;
 `;
 
 export const ButtonsWrapper = styled.View`
@@ -83,8 +83,8 @@ export const ButtonIcon = styled.Image`
 
 export const ButtonTitle = styled.Text`
   font-size: 9px;
-  color: #EEAD4f;
-  font-weight: ${(props) => (props.isBold ? 500 : 300)};
+  color: #eead4f;
+  font-weight: ${props => (props.isBold ? 500 : 300)};
 `;
 
 export const TaskText = styled.Text`
@@ -92,7 +92,7 @@ export const TaskText = styled.Text`
   margin-left: 5%;
   margin-top: 10px;
   margin-bottom: 10px;
-  color: #EEAD4f;
+  color: #eead4f;
   font-size: 14px;
 `;
 
@@ -100,7 +100,7 @@ export const YellowBar = styled.View`
   position: relative;
   width: 100%;
   height: 20px;
-  background: #EEAD4f;
+  background: #eead4f;
   justify-content: center;
 `;
 
@@ -135,7 +135,7 @@ export const CommentsWrapper = styled.View`
 export const CommentsEmpty = styled.Text`
   font-size: 14px;
   font-weight: 500;
-  color: #EEAD4f;
+  color: #eead4f;
 `;
 
 export const ActivityIndicator = styled.ActivityIndicator`

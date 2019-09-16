@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 import Home from './screens/Home';
 import Main from './screens/Main';

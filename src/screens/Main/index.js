@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Linking, Alert, Text } from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {Linking, Alert} from 'react-native';
 import MapView from 'react-native-maps';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 
@@ -26,7 +26,6 @@ import {
   AddressIcon,
   CommentsWrapper,
   CommentsEmpty,
-
 } from './styles';
 
 import servicesIcon from '../../assets/services.png';
@@ -35,8 +34,8 @@ import phoneIcon from '../../assets/phone.png';
 import markerIcon from '../../assets/marker.png';
 import starIcon from '../../assets/star.png';
 
-const Main = (props) => {
-  const { navigation } = props;
+const Main = props => {
+  const {navigation} = props;
   const scrollView = useRef(null);
   const commentsRef = useRef(null);
   const [data, setData] = useState(null);
@@ -56,16 +55,14 @@ const Main = (props) => {
 
   const task = navigation.getParam('task');
 
-  const fetchTask = async (id) => {
+  const fetchTask = async id => {
     const response = await api.getTask(id);
     setData(response.data);
-    setLocation(
-      {
-        ...location,
-        latitude: response.data.latitude,
-        longitude: response.data.longitude,
-      },
-    );
+    setLocation({
+      ...location,
+      latitude: response.data.latitude,
+      longitude: response.data.longitude,
+    });
   };
 
   useEffect(() => {
@@ -77,12 +74,7 @@ const Main = (props) => {
   };
 
   const handleShowLocation = () => {
-    Alert.alert(
-      'Endereço',
-      data.endereco,
-      [{ text: 'Ok' }],
-      { cancelable: false },
-    );
+    Alert.alert('Endereço', data.endereco, [{text: 'Ok'}], {cancelable: false});
   };
 
   const handleScrollToComments = () => {
@@ -102,8 +94,7 @@ const Main = (props) => {
       ref={scrollView}
       onContentSizeChange={(width, height) => {
         setContainerHeight(height);
-      }}
-    >
+      }}>
       {!data && <ActivityIndicator size="large" color="#000" />}
 
       {data && (
@@ -118,18 +109,18 @@ const Main = (props) => {
           />
           <ImageWrapper>
             <TaskImage
-              source={{ uri: data.urlFoto }}
+              source={{uri: data.urlFoto}}
               resizeMode="cover"
               onLoad={() => {
                 setIsImgLoaded(true);
               }}
             />
             <TaskIconButton>
-              <TaskIcon source={{ uri: data.urlLogo }} />
+              <TaskIcon source={{uri: data.urlLogo}} />
             </TaskIconButton>
           </ImageWrapper>
 
-          <TaskTitle>{ data.titulo.toUpperCase() }</TaskTitle>
+          <TaskTitle>{data.titulo.toUpperCase()}</TaskTitle>
 
           <ContentWrapper>
             <ButtonsWrapper>
@@ -155,41 +146,30 @@ const Main = (props) => {
               </Button>
             </ButtonsWrapper>
 
-            <TaskText>
-              { data.texto }
-            </TaskText>
+            <TaskText>{data.texto}</TaskText>
           </ContentWrapper>
 
-          { location.latitude && (
+          {location.latitude && (
             <>
-              <MapView
-                style={styles.addressMap}
-                region={location}
-              >
-                <MapView.Marker
-                  coordinate={location}
-                />
+              <MapView style={styles.addressMap} region={location}>
+                <MapView.Marker coordinate={location} />
               </MapView>
 
               <YellowBar>
-                <AddressText>{ data.endereco }</AddressText>
+                <AddressText>{data.endereco}</AddressText>
                 <AddressIconArea>
                   <AddressIcon source={markerIcon} />
                 </AddressIconArea>
               </YellowBar>
 
-              <CommentsWrapper
-                ref={commentsRef}
-              >
-                { data.comentarios.length === 0 && (
+              <CommentsWrapper ref={commentsRef}>
+                {data.comentarios.length === 0 && (
                   <CommentsEmpty>Ainda não há comentários</CommentsEmpty>
                 )}
-                {
-                  data.comentarios.length > 0
-                  && data.comentarios.map((comment) => (
+                {data.comentarios.length > 0 &&
+                  data.comentarios.map(comment => (
                     <Commentary data={comment} key={comment.titulo} />
-                  ))
-                }
+                  ))}
               </CommentsWrapper>
             </>
           )}

@@ -15,6 +15,6 @@ export const CardWrapper = styled.TouchableOpacity`
 
 export const TaskTitle = styled.Text`
   font-size: 18;
-  color: #EEAD4f;
+  color: #eead4f;
   font-family: Arial;
 `;
