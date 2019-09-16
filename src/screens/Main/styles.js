@@ -1,4 +1,12 @@
 import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  addressMap: {
+    width: '100%',
+    height: 80,
+  },
+});
 
 export const Container = styled.ScrollView`
   flex: 1;
@@ -8,7 +16,7 @@ export const Container = styled.ScrollView`
 export const ImageWrapper = styled.View`
   position: relative;
   flex: 1;
-  height: 200;
+  height: 200px;
 `;
 
 export const TaskImage = styled.Image`
@@ -35,7 +43,7 @@ export const ContentWrapper = styled.View`
 `;
 
 export const TaskTitle = styled.Text`
-  font-size: 20;
+  font-size: 18;
   font-weight: 500;
   margin-left: 5%;
   margin-top: 15px;
@@ -79,4 +87,37 @@ export const TaskText = styled.Text`
   margin-bottom: 10px;
   color: #EEAD4f;
   font-size: 14px;
+`;
+
+export const YellowBar = styled.View`
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background: #EEAD4f;
+  justify-content: center;
+`;
+
+export const AddressText = styled.Text`
+  font-size: 10px;
+  color: #fff;
+  text-align: right;
+  margin-right: 15%;
+`;
+
+export const AddressIconArea = styled.View`
+  position: absolute;
+  right: 10px;
+  top: -15px;
+  /* padding: 5px; */
+  background-color: #fff;
+  border-radius: 15px;
+`;
+
+export const AddressIcon = styled.Image`
+  width: 30px;
+  height: 30px;
+`;
+
+export const CommentsWrapper = styled.FlatList`
+  background-color: #fff;
 `;

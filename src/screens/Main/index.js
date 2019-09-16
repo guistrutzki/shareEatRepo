@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, ActivityIndicator, Linking, Alert } from 'react-native';
+import MapView from 'react-native-maps';
 
 import api from '../../services/api';
+import Commentary from '../../Components/Commentary';
 import {
   Container,
   ImageWrapper,
@@ -14,7 +16,13 @@ import {
   Button,
   ButtonIcon,
   ButtonTitle,
-  TaskText
+  TaskText,
+  styles,
+  YellowBar,
+  AddressText,
+  AddressIconArea,
+  AddressIcon,
+  CommentsWrapper,
 } from './styles';
 
 import servicesIcon from '../../assets/services.png';
@@ -23,9 +31,13 @@ import phoneIcon from '../../assets/phone.png';
 import markerIcon from '../../assets/marker.png';
 import starIcon from '../../assets/star.png';
 
-const Main = props => {
-  const {navigation} = props;
+const Main = (props) => {
+  const { navigation } = props;
   const [data, setData] = useState(null);
+  const [location, setLocation] = useState({
+    latitudeDelta: 0.0043,
+    longitudeDelta: 0.0034,
+  });
   // Component
   const headerRight = <Text>lala</Text>;
 
@@ -36,15 +48,34 @@ const Main = props => {
 
   const task = navigation.getParam('task');
 
-  const fetchTask = async id => {
+  const fetchTask = async (id) => {
     const response = await api.getTask(id);
-    console.log(response.data);
     setData(response.data);
+    setLocation(
+      {
+        ...location,
+        latitude: response.data.latitude,
+        longitude: response.data.longitude,
+      },
+    );
   };
 
   useEffect(() => {
     fetchTask(task);
   }, []);
+
+  const handleCallToNumber = () => {
+    Linking.openURL(`tel:${data.telefone}`);
+  };
+
+  const handleShowLocation = () => {
+    Alert.alert(
+      'Endereço',
+      data.endereco,
+      [{ text: 'Ok' }],
+      { cancelable: false },
+    );
+  };
 
   return (
     <Container>
@@ -63,7 +94,7 @@ const Main = props => {
 
           <ContentWrapper>
             <ButtonsWrapper>
-              <Button onPress={() => alert('call')}>
+              <Button onPress={() => handleCallToNumber()}>
                 <ButtonIcon source={phoneIcon} />
                 <ButtonTitle isBold>Ligar</ButtonTitle>
               </Button>
@@ -71,7 +102,7 @@ const Main = props => {
                 <ButtonIcon source={servicesIcon} />
                 <ButtonTitle>Serviços</ButtonTitle>
               </Button>
-              <Button onPress={() => alert('marker')}>
+              <Button onPress={() => handleShowLocation()}>
                 <ButtonIcon source={markerIcon} />
                 <ButtonTitle>Endereço</ButtonTitle>
               </Button>
@@ -89,6 +120,30 @@ const Main = props => {
               { data.texto }
             </TaskText>
           </ContentWrapper>
+
+          { location.latitude && (
+            <>
+              <MapView
+                style={styles.addressMap}
+                region={location}
+              >
+                <MapView.Marker
+                  coordinate={location}
+                />
+              </MapView>
+
+              <YellowBar>
+                <AddressText>{ data.endereco }</AddressText>
+                <AddressIconArea>
+                  <AddressIcon source={markerIcon} />
+                </AddressIconArea>
+              </YellowBar>
+
+              {
+                data.comentarios.length > 0
+                && data.comentarios.map((comment) => <Commentary data={comment} />)}
+            </>
+          )}
         </>
       )}
     </Container>

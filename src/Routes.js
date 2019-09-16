@@ -4,6 +4,8 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from './screens/Home';
 import Main from './screens/Main';
 
+console.disableYellowBox = true;
+
 const AppRoutes = createStackNavigator({
   Home: {
     screen: Home,
