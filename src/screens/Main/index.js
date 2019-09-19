@@ -96,7 +96,7 @@ const Main = props => {
         headerAddress={
           !data ? 'Carregando...' : `${data.cidade} - ${data.endereco}`
         }
-        showMarkerIcon={data}
+        showMarkerIcon={data === true}
       />
       <Container
         ref={scrollView}
@@ -189,7 +189,10 @@ const Main = props => {
 };
 
 Main.propTypes = {
-  navigation: PropTypes.objectOf,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+    getParam: PropTypes.func,
+  }),
 };
 
 Main.defaultProps = {

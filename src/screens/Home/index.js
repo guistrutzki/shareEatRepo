@@ -24,7 +24,7 @@ const Home = props => {
   };
 
   const handleTaskClick = task => {
-    navigation.navigate('Main', {task, title: 'Localização...'});
+    navigation.navigate('Main', {task});
   };
 
   useEffect(() => {
@@ -54,11 +54,9 @@ const Home = props => {
 };
 
 Home.propTypes = {
-  navigation: PropTypes.objectOf,
-};
-
-Home.defaultProps = {
-  navigation: null,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Home;

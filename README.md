@@ -4,7 +4,9 @@ A RN application developed for share Eat
 
 ## Setup
 
-Run the scripts in your terminal at the project folder.
+Clone this repo and go to project folder.
+
+Run the scripts below in your terminal.
 
 ### iOS
 

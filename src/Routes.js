@@ -24,14 +24,7 @@ const AppRoutes = createStackNavigator({
   Services: {
     screen: Services,
     navigationOptions: {
-      headerStyle: {
-        backgroundColor: '#EEAD4f',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-      },
+      header: null,
     },
   },
 });

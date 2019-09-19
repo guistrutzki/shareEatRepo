@@ -20,7 +20,14 @@ import ArrowIcon from '../../assets/left-arrow.png';
 import LocationIcon from '../../assets/marker-white.png';
 
 const Header = props => {
-  const {isHome, navRef, headerAddress, showMarkerIcon} = props;
+  const {
+    isHome,
+    navRef,
+    headerAddress,
+    showMarkerIcon,
+    title,
+    isDefault,
+  } = props;
   return (
     <SafeAreaView>
       {isHome && (
@@ -29,7 +36,18 @@ const Header = props => {
         </HeaderTitleWrapper>
       )}
 
-      {!isHome && (
+      {isDefault && (
+        <>
+          <BackButton platform={Platform.OS} onPress={() => navRef.goBack()}>
+            <BackButtonIcon source={ArrowIcon} />
+          </BackButton>
+          <HeaderTitleWrapper>
+            <HeaderTitle>{title}</HeaderTitle>
+          </HeaderTitleWrapper>
+        </>
+      )}
+
+      {!isHome && !isDefault && (
         <>
           <BackButton platform={Platform.OS} onPress={() => navRef.goBack()}>
             <BackButtonIcon source={ArrowIcon} />
@@ -51,16 +69,26 @@ const Header = props => {
 
 Header.propTypes = {
   isHome: PropTypes.bool,
-  navRef: PropTypes.objectOf,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }),
+  navRef: PropTypes.shape({
+    goBack: PropTypes.func,
+  }),
   headerAddress: PropTypes.string,
   showMarkerIcon: PropTypes.bool,
+  title: PropTypes.string,
+  isDefault: PropTypes.bool,
 };
 
 Header.defaultProps = {
   isHome: false,
   navRef: null,
+  navigation: null,
   headerAddress: '',
-  showMarkerIcon: false,
+  showMarkerIcon: null,
+  title: '',
+  isDefault: null,
 };
 
 export default Header;

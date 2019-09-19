@@ -1,12 +1,29 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import PropTypes from 'prop-types';
 
-const Services = () => {
+import Header from '../../Components/Header';
+import {Container, Title} from './styles';
+
+const Services = props => {
+  const {navigation} = props;
   return (
-    <View>
-      <Text>lalala</Text>
-    </View>
+    <>
+      <Header title="Serviços" isDefault navRef={navigation} />
+      <Container>
+        <Title>Serviços</Title>
+      </Container>
+    </>
   );
+};
+
+Services.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }),
+};
+
+Services.defaultProps = {
+  navigation: null,
 };
 
 export default Services;
