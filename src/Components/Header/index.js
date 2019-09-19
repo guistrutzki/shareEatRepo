@@ -1,4 +1,5 @@
 import React from 'react';
+import Platform from 'react-native';
 import PropTypes from 'prop-types';
 
 import {
@@ -30,7 +31,7 @@ const Header = props => {
 
       {!isHome && (
         <>
-          <BackButton onPress={() => navRef.goBack()}>
+          <BackButton platform={Platform.OS} onPress={() => navRef.goBack()}>
             <BackButtonIcon source={ArrowIcon} />
           </BackButton>
           <HeaderMiddle>
@@ -39,7 +40,7 @@ const Header = props => {
               {headerAddress || 'Carregando...'}
             </HeaderText>
           </HeaderMiddle>
-          <HeaderRight>
+          <HeaderRight platform={Platform.OS}>
             <SearchButton source={SearchIcon} />
           </HeaderRight>
         </>

@@ -11,7 +11,7 @@ export const BackButton = styled.TouchableOpacity`
   width: 20px;
   height: 20px;
   position: absolute;
-  bottom: 30%;
+  bottom: ${props => (props.platform === 'android' ? '33%' : '25%')};
   left: 15px;
   z-index: 50;
 `;
@@ -37,7 +37,7 @@ export const HeaderText = styled.Text`
 
 export const HeaderRight = styled.TouchableOpacity`
   position: absolute;
-  bottom: 30%;
+  bottom: ${props => (props.platform === 'android' ? '33%' : '25%')};
   right: 10px;
 `;
 
