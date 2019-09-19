@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import PropTypes from 'prop-types';
 
 import api from '../../services/api';
 import Header from '../../Components/Header';
@@ -50,6 +51,14 @@ const Home = props => {
       </LinearGradient>
     </>
   );
+};
+
+Home.propTypes = {
+  navigation: PropTypes.objectOf,
+};
+
+Home.defaultProps = {
+  navigation: null,
 };
 
 export default Home;

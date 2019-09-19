@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   SafeAreaView,
   BackButton,
@@ -44,6 +46,20 @@ const Header = props => {
       )}
     </SafeAreaView>
   );
+};
+
+Header.propTypes = {
+  isHome: PropTypes.bool,
+  navRef: PropTypes.objectOf,
+  headerAddress: PropTypes.string,
+  showMarkerIcon: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  isHome: false,
+  navRef: null,
+  headerAddress: '',
+  showMarkerIcon: false,
 };
 
 export default Header;

@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import {Linking, Alert} from 'react-native';
 import MapView from 'react-native-maps';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
+import PropTypes from 'prop-types';
 
 import api from '../../services/api';
 import Commentary from '../../Components/Commentary';
@@ -185,6 +186,14 @@ const Main = props => {
       </Container>
     </>
   );
+};
+
+Main.propTypes = {
+  navigation: PropTypes.objectOf,
+};
+
+Main.defaultProps = {
+  navigation: null,
 };
 
 export default Main;

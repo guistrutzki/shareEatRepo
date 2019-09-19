@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const SafeAreaView = styled.SafeAreaView`
-  height: 60px;
+  height: 10%;
   width: 100%;
   background-color: #ab711b;
   position: relative;
