@@ -14,6 +14,17 @@ export const styles = StyleSheet.create({
   },
 });
 
+export const SearchButtonArea = styled.TouchableOpacity`
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
+
+export const SearchButton = styled.Image`
+  width: 20px;
+  height: 20px;
+`;
+
 export const Container = styled.ScrollView`
   flex: 1;
   background-color: #f1f1f1;
@@ -141,4 +152,9 @@ export const CommentsEmpty = styled.Text`
 export const ActivityIndicator = styled.ActivityIndicator`
   align-self: center;
   min-height: 100%;
+`;
+
+export const Header = styled.Text`
+  width: 100%;
+  background: red;
 `;

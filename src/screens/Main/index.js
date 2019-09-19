@@ -5,6 +5,8 @@ import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 
 import api from '../../services/api';
 import Commentary from '../../Components/Commentary';
+import Header from '../../Components/Header';
+
 import {
   Container,
   ActivityIndicator,
@@ -45,13 +47,6 @@ const Main = props => {
     latitudeDelta: 0.0043,
     longitudeDelta: 0.0034,
   });
-  // Component
-  // const headerRight = <Text>lala</Text>;
-
-  Main.navigationOptions = {
-    title: navigation.getParam('title'),
-    // headerRight,
-  };
 
   const task = navigation.getParam('task');
 
@@ -89,93 +84,106 @@ const Main = props => {
     });
   };
 
+  const handleNavToServices = () => {
+    navigation.navigate('Services');
+  };
+
   return (
-    <Container
-      ref={scrollView}
-      onContentSizeChange={(width, height) => {
-        setContainerHeight(height);
-      }}>
-      {!data && <ActivityIndicator size="large" color="#000" />}
+    <>
+      <Header
+        navRef={navigation}
+        headerAddress={
+          !data ? 'Carregando...' : `${data.cidade} - ${data.endereco}`
+        }
+        showMarkerIcon={data}
+      />
+      <Container
+        ref={scrollView}
+        onContentSizeChange={(width, height) => {
+          setContainerHeight(height);
+        }}>
+        {!data && <ActivityIndicator size="large" color="#000" />}
 
-      {data && (
-        <>
-          <ShimmerPlaceHolder
-            style={styles.shimmer}
-            autoRun
-            visible={isImgLoaded}
-            width={1000}
-            height={200}
-            colorShimmer={['#ebebeb', '#c5c5c5', '#ebebeb']}
-          />
-          <ImageWrapper>
-            <TaskImage
-              source={{uri: data.urlFoto}}
-              resizeMode="cover"
-              onLoad={() => {
-                setIsImgLoaded(true);
-              }}
+        {data && (
+          <>
+            <ShimmerPlaceHolder
+              style={styles.shimmer}
+              autoRun
+              visible={isImgLoaded}
+              width={1000}
+              height={200}
+              colorShimmer={['#ebebeb', '#c5c5c5', '#ebebeb']}
             />
-            <TaskIconButton>
-              <TaskIcon source={{uri: data.urlLogo}} />
-            </TaskIconButton>
-          </ImageWrapper>
+            <ImageWrapper>
+              <TaskImage
+                source={{uri: data.urlFoto}}
+                resizeMode="cover"
+                onLoad={() => {
+                  setIsImgLoaded(true);
+                }}
+              />
+              <TaskIconButton>
+                <TaskIcon source={{uri: data.urlLogo}} />
+              </TaskIconButton>
+            </ImageWrapper>
 
-          <TaskTitle>{data.titulo.toUpperCase()}</TaskTitle>
+            <TaskTitle>{data.titulo.toUpperCase()}</TaskTitle>
 
-          <ContentWrapper>
-            <ButtonsWrapper>
-              <Button onPress={() => handleCallToNumber()}>
-                <ButtonIcon source={phoneIcon} />
-                <ButtonTitle isBold>Ligar</ButtonTitle>
-              </Button>
-              <Button onPress={() => alert('services')}>
-                <ButtonIcon source={servicesIcon} />
-                <ButtonTitle>Serviços</ButtonTitle>
-              </Button>
-              <Button onPress={() => handleShowLocation()}>
-                <ButtonIcon source={markerIcon} />
-                <ButtonTitle>Endereço</ButtonTitle>
-              </Button>
-              <Button onPress={() => handleScrollToComments()}>
-                <ButtonIcon source={commentsIcon} />
-                <ButtonTitle>Comentários</ButtonTitle>
-              </Button>
-              <Button onPress={() => {}}>
-                <ButtonIcon source={starIcon} />
-                <ButtonTitle>Favoritos</ButtonTitle>
-              </Button>
-            </ButtonsWrapper>
+            <ContentWrapper>
+              <ButtonsWrapper>
+                <Button onPress={() => handleCallToNumber()}>
+                  <ButtonIcon source={phoneIcon} />
+                  <ButtonTitle isBold>Ligar</ButtonTitle>
+                </Button>
+                <Button onPress={() => handleNavToServices()}>
+                  <ButtonIcon source={servicesIcon} />
+                  <ButtonTitle>Serviços</ButtonTitle>
+                </Button>
+                <Button onPress={() => handleShowLocation()}>
+                  <ButtonIcon source={markerIcon} />
+                  <ButtonTitle>Endereço</ButtonTitle>
+                </Button>
+                <Button onPress={() => handleScrollToComments()}>
+                  <ButtonIcon source={commentsIcon} />
+                  <ButtonTitle>Comentários</ButtonTitle>
+                </Button>
+                <Button onPress={() => {}}>
+                  <ButtonIcon source={starIcon} />
+                  <ButtonTitle>Favoritos</ButtonTitle>
+                </Button>
+              </ButtonsWrapper>
 
-            <TaskText>{data.texto}</TaskText>
-          </ContentWrapper>
+              <TaskText>{data.texto}</TaskText>
+            </ContentWrapper>
 
-          {location.latitude && (
-            <>
-              <MapView style={styles.addressMap} region={location}>
-                <MapView.Marker coordinate={location} />
-              </MapView>
+            {location.latitude && (
+              <>
+                <MapView style={styles.addressMap} region={location}>
+                  <MapView.Marker coordinate={location} />
+                </MapView>
 
-              <YellowBar>
-                <AddressText>{data.endereco}</AddressText>
-                <AddressIconArea>
-                  <AddressIcon source={markerIcon} />
-                </AddressIconArea>
-              </YellowBar>
+                <YellowBar>
+                  <AddressText>{data.endereco}</AddressText>
+                  <AddressIconArea>
+                    <AddressIcon source={markerIcon} />
+                  </AddressIconArea>
+                </YellowBar>
 
-              <CommentsWrapper ref={commentsRef}>
-                {data.comentarios.length === 0 && (
-                  <CommentsEmpty>Ainda não há comentários</CommentsEmpty>
-                )}
-                {data.comentarios.length > 0 &&
-                  data.comentarios.map(comment => (
-                    <Commentary data={comment} key={comment.titulo} />
-                  ))}
-              </CommentsWrapper>
-            </>
-          )}
-        </>
-      )}
-    </Container>
+                <CommentsWrapper ref={commentsRef}>
+                  {data.comentarios.length === 0 && (
+                    <CommentsEmpty>Ainda não há comentários</CommentsEmpty>
+                  )}
+                  {data.comentarios.length > 0 &&
+                    data.comentarios.map(comment => (
+                      <Commentary data={comment} key={comment.titulo} />
+                    ))}
+                </CommentsWrapper>
+              </>
+            )}
+          </>
+        )}
+      </Container>
+    </>
   );
 };
 
